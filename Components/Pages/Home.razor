@@ -3,7 +3,6 @@
 @rendermode InteractiveServer
 @using Syncfusion.Blazor
 @using Syncfusion.Blazor.Charts
-@using System.Net.Http.Json
 
 <div style="padding-top: 20px; visibility: @(IsDivVisible ? "visible" : "hidden");">
     <span @onclick="NavigateToDefault" id="category" style="visibility: @(IsDivVisible ? "visible" : "hidden"); color: #337ab7; display:inline-block">Population</span>
@@ -12,13 +11,13 @@
 </div>
 
 <div class="control-section" align='center'>
-    <SfChart @ref="ChartObj" Title="@ChartTitle" SubTitle="@ChartSubTitle" Width="@Width">
+    <SfChart @ref="ChartObj" Title="@ChartTitle" SubTitle="@ChartSubTitle" Width="@Width" UseGroupingSeparator="true">
         <ChartTitleStyle TextOverflow="TextOverflow.Wrap"></ChartTitleStyle>
         <ChartSubTitleStyle TextOverflow="TextOverflow.Wrap"></ChartSubTitleStyle>
         <ChartArea>
             <ChartAreaBorder Width="0"></ChartAreaBorder>
         </ChartArea>
-        <ChartEvents OnPointRender="PointRender" OnPointClick="OnPointClick" OnAxisLabelClick="AxisLabelClick">
+        <ChartEvents OnPointRender="PointRender" OnPointClick="OnPointClick" OnAxisLabelClick="AxisLabelClick" OnDataLabelRender="DataLabelRender">
         </ChartEvents>
         <ChartPrimaryXAxis ValueType="Syncfusion.Blazor.Charts.ValueType.Category" Interval="1"
                            LabelIntersectAction="@LabelIntersectActions">
@@ -27,7 +26,7 @@
             <ChartAxisMinorTickLines Width="0"></ChartAxisMinorTickLines>
             <ChartAxisMajorGridLines Width="0"></ChartAxisMajorGridLines>
         </ChartPrimaryXAxis>
-        <ChartPrimaryYAxis Title="Population (in Millions)" Interval=@Interval>
+        <ChartPrimaryYAxis Title="Population">
             <ChartAxisLineStyle Width="0"></ChartAxisLineStyle>
             <ChartAxisMinorTickLines Width="0"></ChartAxisMinorTickLines>
         </ChartPrimaryYAxis>
@@ -40,8 +39,8 @@
                 </ChartMarker>
             </ChartSeries>
             <ChartLegendSettings Visible="false" />
-            <ChartTooltipSettings Enable="true" Header="<b>Population - 2023</b>"
-                                  Format="${point.x}: <b>${point.y}M</b>"></ChartTooltipSettings>
+            <ChartTooltipSettings Enable="true" Header="<b>Population - 2025</b>"
+                                  Format="${point.x}: <b>${point.y}</b>"></ChartTooltipSettings>
         </ChartSeriesCollection>
     </SfChart>
 </div>
@@ -70,25 +69,24 @@
     public string Fill = string.Empty;
     public List<string> Colors { get; set; } = new List<string> { "#FFD700", "#FF7F50", "#40E0D0", "#808080", "#008000", "#4682B4", "#FF6347", "#9370DB", "#A0522D", "#800080" };
     public string Color = "blue";
-    public double Interval = 1000;
     private bool clicked = false;
     public string Width { get; set; } = "90%";
     private Syncfusion.Blazor.Charts.LabelIntersectAction LabelIntersectActions { get; set; } = Syncfusion.Blazor.Charts.LabelIntersectAction.Rotate90;
-    private String ChartTitle { get; set; } = "Top Populated Continents of 2023";
-    private String ChartSubTitle { get; set; } = "A Look at Population Rankings and Trends in 2023";
+    private String ChartTitle { get; set; } = "Top Populated Continents of 2025";
+    private String ChartSubTitle { get; set; } = "A Look at Population Rankings and Trends in 2025";
     private bool IsDivVisible { get; set; } = false;
     private string RegionName { get; set; } = string.Empty;
     public List<PopulationData> DataSource { get; set; } = new List<PopulationData>
     {
-        new PopulationData { Drilldown = "Asia", Y = 4778},
-        new PopulationData { Drilldown = "Africa", Y = 1481 },
-        new PopulationData { Drilldown = "Europe", Y = 746 },
-        new PopulationData { Drilldown = "North America", Y = 379 },
-        new PopulationData { Drilldown = "Oceania", Y = 46 }
+        new PopulationData { Drilldown = "Asia", Y = 4849336830},
+        new PopulationData { Drilldown = "Africa", Y = 1567367367 },
+        new PopulationData { Drilldown = "Europe", Y = 744010306 },
+        new PopulationData { Drilldown = "America", Y = 1058663026 },
+        new PopulationData { Drilldown = "Oceania", Y = 46867762 }
     };
     public class PopulationData
     {
-        public int Y { get; set; }
+        public double Y { get; set; }
         public string Drilldown { get; set; }
     }
     public void PointRender(PointRenderEventArgs args)
@@ -105,19 +103,18 @@
             TextDecoration = "underline";
             Color = "blue";
             clicked = false;
-            Interval = 1000;
             RegionName = "";
             IsDivVisible = false;
-            ChartTitle = "Top Populated Continents of 2023";
+            ChartTitle = "Top Populated Continents of 2025";
             DataSource =
             new List<PopulationData>
-                {
-                new PopulationData { Drilldown = "Asia", Y = 4778 },
-                new PopulationData { Drilldown = "Africa", Y = 1481 },
-                new PopulationData { Drilldown = "Europe", Y = 746 },
-                new PopulationData { Drilldown = "North America", Y = 379 },
-                new PopulationData { Drilldown = "Oceania", Y = 46 }
-                };
+                    {
+                new PopulationData { Drilldown = "Asia", Y = 4849336830},
+                new PopulationData { Drilldown = "Africa", Y = 1567367367 },
+                new PopulationData { Drilldown = "Europe", Y = 744010306 },
+                new PopulationData { Drilldown = "America", Y = 1058663026 },
+                new PopulationData { Drilldown = "Oceania", Y = 46867762 }
+                    };
             ChartObj.PreventRender(false);
         }
         StateHasChanged();
@@ -131,80 +128,81 @@
                 TextDecoration = "none";
                 Fill = Colors[args.Index % 10];
                 IsDivVisible = true;
-                Interval = Double.NaN;
                 switch (args.Index)
                 {
                     case 0:
                         clicked = true;
-                        ChartTitle = "Top Populated Countries of Asia - 2023";
+                        ChartTitle = "Top Populated Countries of Asia - 2025";
                         RegionName = "Asia";
                         DataSource = new List<PopulationData>
                         {
-                            new PopulationData { Y = 1422, Drilldown = "China" },
-                            new PopulationData { Y = 1438, Drilldown = "India" },
-                            new PopulationData { Y = 278, Drilldown = "Indonesia" },
-                            new PopulationData { Y = 240, Drilldown = "Pakistan" },
-                            new PopulationData { Y = 173, Drilldown = "Bangladesh" },
-                            new PopulationData { Y = 125, Drilldown = "Japan" },
-                            new PopulationData { Y = 117, Drilldown = "Philippines" },
-                            new PopulationData { Y = 99, Drilldown = "Vietnam" }
+                            new PopulationData { Y = 1416096094, Drilldown = "China" },
+                            new PopulationData { Y = 1463865525, Drilldown = "India" },
+                            new PopulationData { Y = 285721236, Drilldown = "Indonesia" },
+                            new PopulationData { Y = 240485658, Drilldown = "Pakistan" },
+                            new PopulationData { Y = 173674000, Drilldown = "Bangladesh" },
+                            new PopulationData { Y = 125214000, Drilldown = "Japan" },
+                            new PopulationData { Y = 117337000, Drilldown = "Philippines" },
+                            new PopulationData { Y = 99145000, Drilldown = "Vietnam" }
                         };
                         break;
                     case 1:
                         clicked = true;
-                        ChartTitle = "Top Populated Countries of Africa - 2023";
+                        ChartTitle = "Top Populated Countries of Africa - 2025";
                         RegionName = "Africa";
                         DataSource = new List<PopulationData>
                         {
-                            new PopulationData { Y = 223, Drilldown = "Nigeria" },
-                            new PopulationData { Y = 126, Drilldown = "Ethiopia" },
-                            new PopulationData { Y = 113, Drilldown = "Egypt" },
-                            new PopulationData { Y = 68, Drilldown = "Tanzania" },
-                            new PopulationData { Y = 60, Drilldown = "South Africa" },
-                            new PopulationData { Y = 55, Drilldown = "Kenya" },
-                            new PopulationData { Y = 48, Drilldown = "Uganda" }
+                            new PopulationData { Y = 223804632, Drilldown = "Nigeria" },
+                            new PopulationData { Y = 126527060, Drilldown = "Ethiopia" },
+                            new PopulationData { Y = 113733760, Drilldown = "Egypt" },
+                            new PopulationData { Y = 68260196, Drilldown = "Tanzania" },
+                            new PopulationData { Y = 60041463, Drilldown = "South Africa" },
+                            new PopulationData { Y = 55506699, Drilldown = "Kenya" },
+                            new PopulationData { Y = 48722967, Drilldown = "Uganda" }
                         };
                         break;
                     case 2:
                         clicked = true;
-                        ChartTitle = "Top Populated Countries of Europe - 2023";
+                        ChartTitle = "Top Populated Countries of Europe - 2025";
                         RegionName = "Europe";
                         DataSource = new List<PopulationData>
                         {
-                            new PopulationData { Y = 143, Drilldown = "Russia" },
-                            new PopulationData { Y = 84, Drilldown = "Germany" },
-                            new PopulationData { Y = 67, Drilldown = "United Kingdom" },
-                            new PopulationData { Y = 65, Drilldown = "France" },
-                            new PopulationData { Y = 59, Drilldown = "Italy" },
-                            new PopulationData { Y = 47, Drilldown = "Spain" }
+                            new PopulationData { Y = 143400000, Drilldown = "Russia" },
+                            new PopulationData { Y = 84171726, Drilldown = "Germany" },
+                            new PopulationData { Y = 67508979, Drilldown = "United Kingdom" },
+                            new PopulationData { Y = 65488764, Drilldown = "France" },
+                            new PopulationData { Y = 59037422, Drilldown = "Italy" },
+                            new PopulationData { Y = 47432899, Drilldown = "Spain" }
                         };
+
                         break;
                     case 3:
                         clicked = true;
-                        ChartTitle = "Top Populated Countries of North America - 2023";
-                        RegionName = "North America";
+                        ChartTitle = "Top Populated Countries of North America - 2025";
+                        RegionName = "America";
                         DataSource = new List<PopulationData>
                         {
-                            new PopulationData { Y = 339, Drilldown = "United States" },
-                            new PopulationData { Y = 127, Drilldown = "Mexico" },
-                            new PopulationData { Y = 39, Drilldown = "Canada" },
-                            new PopulationData { Y = 19, Drilldown = "Guatemala" },
-                            new PopulationData { Y = 10, Drilldown = "Honduras" },
-                            new PopulationData { Y = 6, Drilldown = "El Salvador" },
-                            new PopulationData { Y = 6, Drilldown = "Nicaragua" },
-                            new PopulationData { Y = 5, Drilldown = "Costa Rica" }
+                            new PopulationData { Y = 339996563, Drilldown = "United States" },
+                            new PopulationData { Y = 127504125, Drilldown = "Mexico" },
+                            new PopulationData { Y = 39047872, Drilldown = "Canada" },
+                            new PopulationData { Y = 19161239, Drilldown = "Guatemala" },
+                            new PopulationData { Y = 10233527, Drilldown = "Honduras" },
+                            new PopulationData { Y = 6486205, Drilldown = "El Salvador" },
+                            new PopulationData { Y = 6782105, Drilldown = "Nicaragua" },
+                            new PopulationData { Y = 5300996, Drilldown = "Costa Rica" }
                         };
                         break;
                     case 4:
                         clicked = true;
-                        ChartTitle = "Top Populated Countries of Oceania - 2023";
+                        ChartTitle = "Top Populated Countries of Oceania - 2025";
                         RegionName = "Oceania";
                         DataSource = new List<PopulationData>
                         {
-                            new PopulationData { Y = 26, Drilldown = "Australia" },
-                            new PopulationData { Y = 9, Drilldown = "Papua New Guinea" },
-                            new PopulationData { Y = 5, Drilldown = "New Zealand" }
+                            new PopulationData { Y = 26784599, Drilldown = "Australia" },
+                            new PopulationData { Y = 9594300, Drilldown = "Papua New Guinea" },
+                            new PopulationData { Y = 5122600, Drilldown = "New Zealand" }
                         };
+
                         break;
                 }
                 StateHasChanged();
@@ -218,81 +216,80 @@
             if (!clicked)
             {
                 TextDecoration = "none";
-                Interval = Double.NaN;
                 Fill = Colors[args.Point.Index % 10];
                 IsDivVisible = true;
                 switch (args.Point.Index)
                 {
                     case 0:
                         clicked = true;
-                        ChartTitle = "Top Populated Countries of Asia - 2023";
+                        ChartTitle = "Top Populated Countries of Asia - 2025";
                         RegionName = "Asia";
                         DataSource = new List<PopulationData>
                         {
-                            new PopulationData { Y = 1422, Drilldown = "China" },
-                            new PopulationData { Y = 1438, Drilldown = "India" },
-                            new PopulationData { Y = 278, Drilldown = "Indonesia" },
-                            new PopulationData { Y = 240, Drilldown = "Pakistan" },
-                            new PopulationData { Y = 173, Drilldown = "Bangladesh" },
-                            new PopulationData { Y = 125, Drilldown = "Japan" },
-                            new PopulationData { Y = 117, Drilldown = "Philippines" },
-                            new PopulationData { Y = 99, Drilldown = "Vietnam" }
+                            new PopulationData { Y = 1416096094, Drilldown = "China" },
+                            new PopulationData { Y = 1463865525, Drilldown = "India" },
+                            new PopulationData { Y = 285721236, Drilldown = "Indonesia" },
+                            new PopulationData { Y = 240485658, Drilldown = "Pakistan" },
+                            new PopulationData { Y = 173674000, Drilldown = "Bangladesh" },
+                            new PopulationData { Y = 125214000, Drilldown = "Japan" },
+                            new PopulationData { Y = 117337000, Drilldown = "Philippines" },
+                            new PopulationData { Y = 99145000, Drilldown = "Vietnam" }
                         };
                         break;
                     case 1:
                         clicked = true;
-                        ChartTitle = "Top Populated Countries of Africa - 2023";
+                        ChartTitle = "Top Populated Countries of Africa - 2025";
                         RegionName = "Africa";
                         DataSource = new List<PopulationData>
                         {
-                            new PopulationData { Y = 223, Drilldown = "Nigeria" },
-                            new PopulationData { Y = 126, Drilldown = "Ethiopia" },
-                            new PopulationData { Y = 113, Drilldown = "Egypt" },
-                            new PopulationData { Y = 68, Drilldown = "Tanzania" },
-                            new PopulationData { Y = 60, Drilldown = "South Africa" },
-                            new PopulationData { Y = 55, Drilldown = "Kenya" },
-                            new PopulationData { Y = 48, Drilldown = "Uganda" }
+                            new PopulationData { Y = 223804632, Drilldown = "Nigeria" },
+                            new PopulationData { Y = 126527060, Drilldown = "Ethiopia" },
+                            new PopulationData { Y = 113733760, Drilldown = "Egypt" },
+                            new PopulationData { Y = 68260196, Drilldown = "Tanzania" },
+                            new PopulationData { Y = 60041463, Drilldown = "South Africa" },
+                            new PopulationData { Y = 55506699, Drilldown = "Kenya" },
+                            new PopulationData { Y = 48722967, Drilldown = "Uganda" }
                         };
                         break;
                     case 2:
                         clicked = true;
-                        ChartTitle = "Top Populated Countries of Europe - 2023";
+                        ChartTitle = "Top Populated Countries of Europe - 2025";
                         RegionName = "Europe";
                         DataSource = new List<PopulationData>
                         {
-                            new PopulationData { Y = 143, Drilldown = "Russia" },
-                            new PopulationData { Y = 84, Drilldown = "Germany" },
-                            new PopulationData { Y = 67, Drilldown = "United Kingdom" },
-                            new PopulationData { Y = 65, Drilldown = "France" },
-                            new PopulationData { Y = 59, Drilldown = "Italy" },
-                            new PopulationData { Y = 47, Drilldown = "Spain" }
+                            new PopulationData { Y = 143400000, Drilldown = "Russia" },
+                            new PopulationData { Y = 84171726, Drilldown = "Germany" },
+                            new PopulationData { Y = 67508979, Drilldown = "United Kingdom" },
+                            new PopulationData { Y = 65488764, Drilldown = "France" },
+                            new PopulationData { Y = 59037422, Drilldown = "Italy" },
+                            new PopulationData { Y = 47432899, Drilldown = "Spain" }
                         };
                         break;
                     case 3:
                         clicked = true;
-                        ChartTitle = "Top Populated Countries of North America - 2023";
+                        ChartTitle = "Top Populated Countries of North America - 2025";
                         RegionName = "North America";
                         DataSource = new List<PopulationData>
                         {
-                            new PopulationData { Y = 339, Drilldown = "United States" },
-                            new PopulationData { Y = 127, Drilldown = "Mexico" },
-                            new PopulationData { Y = 39, Drilldown = "Canada" },
-                            new PopulationData { Y = 19, Drilldown = "Guatemala" },
-                            new PopulationData { Y = 10, Drilldown = "Honduras" },
-                            new PopulationData { Y = 6, Drilldown = "El Salvador" },
-                            new PopulationData { Y = 6, Drilldown = "Nicaragua" },
-                            new PopulationData { Y = 5, Drilldown = "Costa Rica" }
+                            new PopulationData { Y = 339996563, Drilldown = "United States" },
+                            new PopulationData { Y = 127504125, Drilldown = "Mexico" },
+                            new PopulationData { Y = 39047872, Drilldown = "Canada" },
+                            new PopulationData { Y = 19161239, Drilldown = "Guatemala" },
+                            new PopulationData { Y = 10233527, Drilldown = "Honduras" },
+                            new PopulationData { Y = 6486205, Drilldown = "El Salvador" },
+                            new PopulationData { Y = 6782105, Drilldown = "Nicaragua" },
+                            new PopulationData { Y = 5300996, Drilldown = "Costa Rica" }
                         };
                         break;
                     case 4:
                         clicked = true;
-                        ChartTitle = "Top Populated Countries of Oceania - 2023";
+                        ChartTitle = "Top Populated Countries of Oceania - 2025";
                         RegionName = "Oceania";
                         DataSource = new List<PopulationData>
                         {
-                            new PopulationData { Y = 26, Drilldown = "Australia" },
-                            new PopulationData { Y = 9, Drilldown = "Papua New Guinea" },
-                            new PopulationData { Y = 5, Drilldown = "New Zealand" }
+                            new PopulationData { Y = 26784599, Drilldown = "Australia" },
+                            new PopulationData { Y = 9594300, Drilldown = "Papua New Guinea" },
+                            new PopulationData { Y = 5122600, Drilldown = "New Zealand" }
                         };
                         break;
                 }
@@ -302,5 +299,24 @@
                 ChartObj.PreventRender();
             }
         }
+    }
+
+    public void DataLabelRender(TextRenderEventArgs args)
+    {
+        double value;
+        if (double.TryParse(args.Text, out value))
+        {
+            args.Text = FormatNumber(value);
+        }
+    }
+
+    private string FormatNumber(double num)
+    {
+        if (num >= 1_000_000_000)
+            return (num / 1_000_000_000).ToString("0.#") + " B";
+        else if (num >= 1_000_000)
+            return (num / 1_000_000).ToString("0.#") + " M";
+        else
+            return num.ToString("0");
     }
 }
