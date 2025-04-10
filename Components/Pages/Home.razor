@@ -128,83 +128,7 @@
                 TextDecoration = "none";
                 Fill = Colors[args.Index % 10];
                 IsDivVisible = true;
-                switch (args.Index)
-                {
-                    case 0:
-                        clicked = true;
-                        ChartTitle = "Top Populated Countries of Asia - 2025";
-                        RegionName = "Asia";
-                        DataSource = new List<PopulationData>
-                        {
-                            new PopulationData { Population = 1416096094, Drilldown = "China" },
-                            new PopulationData { Population = 1463865525, Drilldown = "India" },
-                            new PopulationData { Population = 285721236, Drilldown = "Indonesia" },
-                            new PopulationData { Population = 240485658, Drilldown = "Pakistan" },
-                            new PopulationData { Population = 173674000, Drilldown = "Bangladesh" },
-                            new PopulationData { Population = 125214000, Drilldown = "Japan" },
-                            new PopulationData { Population = 117337000, Drilldown = "Philippines" },
-                            new PopulationData { Population = 99145000, Drilldown = "Vietnam" }
-                        };
-                        break;
-                    case 1:
-                        clicked = true;
-                        ChartTitle = "Top Populated Countries of Africa - 2025";
-                        RegionName = "Africa";
-                        DataSource = new List<PopulationData>
-                        {
-                            new PopulationData { Population = 223804632, Drilldown = "Nigeria" },
-                            new PopulationData { Population = 126527060, Drilldown = "Ethiopia" },
-                            new PopulationData { Population = 113733760, Drilldown = "EgPopulationpt" },
-                            new PopulationData { Population = 68260196, Drilldown = "Tanzania" },
-                            new PopulationData { Population = 60041463, Drilldown = "South Africa" },
-                            new PopulationData { Population = 55506699, Drilldown = "KenPopulationa" },
-                            new PopulationData { Population = 48722967, Drilldown = "Uganda" }
-                        };
-                        break;
-                    case 2:
-                        clicked = true;
-                        ChartTitle = "Top Populated Countries of Europe - 2025";
-                        RegionName = "Europe";
-                        DataSource = new List<PopulationData>
-                        {
-                            new PopulationData { Population = 143400000, Drilldown = "Russia" },
-                            new PopulationData { Population = 84171726, Drilldown = "GermanPopulation" },
-                            new PopulationData { Population = 67508979, Drilldown = "United Kingdom" },
-                            new PopulationData { Population = 65488764, Drilldown = "France" },
-                            new PopulationData { Population = 59037422, Drilldown = "ItalPopulation" },
-                            new PopulationData { Population = 47432899, Drilldown = "Spain" }
-                        };
-
-                        break;
-                    case 3:
-                        clicked = true;
-                        ChartTitle = "Top Populated Countries of North America - 2025";
-                        RegionName = "America";
-                        DataSource = new List<PopulationData>
-                        {
-                            new PopulationData { Population = 339996563, Drilldown = "United States" },
-                            new PopulationData { Population = 127504125, Drilldown = "Mexico" },
-                            new PopulationData { Population = 39047872, Drilldown = "Canada" },
-                            new PopulationData { Population = 19161239, Drilldown = "Guatemala" },
-                            new PopulationData { Population = 10233527, Drilldown = "Honduras" },
-                            new PopulationData { Population = 6486205, Drilldown = "El Salvador" },
-                            new PopulationData { Population = 6782105, Drilldown = "Nicaragua" },
-                            new PopulationData { Population = 5300996, Drilldown = "Costa Rica" }
-                        };
-                        break;
-                    case 4:
-                        clicked = true;
-                        ChartTitle = "Top Populated Countries of Oceania - 2025";
-                        RegionName = "Oceania";
-                        DataSource = new List<PopulationData>
-                        {
-                            new PopulationData { Population = 26784599, Drilldown = "Australia" },
-                            new PopulationData { Population = 9594300, Drilldown = "Papua New Guinea" },
-                            new PopulationData { Population = 5122600, Drilldown = "New Zealand" }
-                        };
-
-                        break;
-                }
+                UpdateDataSource(args.Index);
                 StateHasChanged();
             }
         }
@@ -218,13 +142,24 @@
                 TextDecoration = "none";
                 Fill = Colors[args.Point.Index % 10];
                 IsDivVisible = true;
-                switch (args.Point.Index)
-                {
-                    case 0:
-                        clicked = true;
-                        ChartTitle = "Top Populated Countries of Asia - 2025";
-                        RegionName = "Asia";
-                        DataSource = new List<PopulationData>
+                UpdateDataSource(args.Point.Index);
+            }
+            else
+            {
+                ChartObj.PreventRender();
+            }
+        }
+    }
+
+    public void UpdateDataSource(int index)
+    {
+        switch (index)
+        {
+            case 0:
+                clicked = true;
+                ChartTitle = "Top Populated Countries of Asia - 2025";
+                RegionName = "Asia";
+                DataSource = new List<PopulationData>
                         {
                             new PopulationData { Population = 1416096094, Drilldown = "China" },
                             new PopulationData { Population = 1463865525, Drilldown = "India" },
@@ -235,12 +170,12 @@
                             new PopulationData { Population = 117337000, Drilldown = "Philippines" },
                             new PopulationData { Population = 99145000, Drilldown = "Vietnam" }
                         };
-                        break;
-                    case 1:
-                        clicked = true;
-                        ChartTitle = "Top Populated Countries of Africa - 2025";
-                        RegionName = "Africa";
-                        DataSource = new List<PopulationData>
+                break;
+            case 1:
+                clicked = true;
+                ChartTitle = "Top Populated Countries of Africa - 2025";
+                RegionName = "Africa";
+                DataSource = new List<PopulationData>
                         {
                             new PopulationData { Population = 223804632, Drilldown = "Nigeria" },
                             new PopulationData { Population = 126527060, Drilldown = "Ethiopia" },
@@ -250,12 +185,12 @@
                             new PopulationData { Population = 55506699, Drilldown = "KenPopulationa" },
                             new PopulationData { Population = 48722967, Drilldown = "Uganda" }
                         };
-                        break;
-                    case 2:
-                        clicked = true;
-                        ChartTitle = "Top Populated Countries of Europe - 2025";
-                        RegionName = "Europe";
-                        DataSource = new List<PopulationData>
+                break;
+            case 2:
+                clicked = true;
+                ChartTitle = "Top Populated Countries of Europe - 2025";
+                RegionName = "Europe";
+                DataSource = new List<PopulationData>
                         {
                             new PopulationData { Population = 143400000, Drilldown = "Russia" },
                             new PopulationData { Population = 84171726, Drilldown = "GermanPopulation" },
@@ -264,12 +199,12 @@
                             new PopulationData { Population = 59037422, Drilldown = "ItalPopulation" },
                             new PopulationData { Population = 47432899, Drilldown = "Spain" }
                         };
-                        break;
-                    case 3:
-                        clicked = true;
-                        ChartTitle = "Top Populated Countries of North America - 2025";
-                        RegionName = "North America";
-                        DataSource = new List<PopulationData>
+                break;
+            case 3:
+                clicked = true;
+                ChartTitle = "Top Populated Countries of North America - 2025";
+                RegionName = "North America";
+                DataSource = new List<PopulationData>
                         {
                             new PopulationData { Population = 339996563, Drilldown = "United States" },
                             new PopulationData { Population = 127504125, Drilldown = "Mexico" },
@@ -280,24 +215,18 @@
                             new PopulationData { Population = 6782105, Drilldown = "Nicaragua" },
                             new PopulationData { Population = 5300996, Drilldown = "Costa Rica" }
                         };
-                        break;
-                    case 4:
-                        clicked = true;
-                        ChartTitle = "Top Populated Countries of Oceania - 2025";
-                        RegionName = "Oceania";
-                        DataSource = new List<PopulationData>
+                break;
+            case 4:
+                clicked = true;
+                ChartTitle = "Top Populated Countries of Oceania - 2025";
+                RegionName = "Oceania";
+                DataSource = new List<PopulationData>
                         {
                             new PopulationData { Population = 26784599, Drilldown = "Australia" },
                             new PopulationData { Population = 9594300, Drilldown = "Papua New Guinea" },
                             new PopulationData { Population = 5122600, Drilldown = "New Zealand" }
                         };
-                        break;
-                }
-            }
-            else
-            {
-                ChartObj.PreventRender();
-            }
+                break;
         }
     }
 
