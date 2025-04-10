@@ -32,16 +32,16 @@
         </ChartPrimaryYAxis>
         <ChartSeriesCollection>
             <ChartSeries Fill="@Fill" DataSource="@DataSource" Name="Population" XName="Drilldown" Width="2" Opacity="1"
-                         YName="Y" Type="ChartSeriesType.Column"
+                         YName="Population" Type="ChartSeriesType.Column"
                          CornerRadius="@(new ChartCornerRadius { TopLeft = 5, TopRight = 5})">
                 <ChartMarker>
                     <ChartDataLabel Visible="true" Position="LabelPosition.Outer"></ChartDataLabel>
                 </ChartMarker>
             </ChartSeries>
-            <ChartLegendSettings Visible="false" />
-            <ChartTooltipSettings Enable="true" Header="<b>Population - 2025</b>"
-                                  Format="${point.x}: <b>${point.y}</b>"></ChartTooltipSettings>
         </ChartSeriesCollection>
+        <ChartLegendSettings Visible="false" />
+        <ChartTooltipSettings Enable="true" Header="<b>Population - 2025</b>"
+                              Format="${point.x}: <b>${point.y}</b>"></ChartTooltipSettings>
     </SfChart>
 </div>
 
@@ -78,15 +78,15 @@
     private string RegionName { get; set; } = string.Empty;
     public List<PopulationData> DataSource { get; set; } = new List<PopulationData>
     {
-        new PopulationData { Drilldown = "Asia", Y = 4849336830},
-        new PopulationData { Drilldown = "Africa", Y = 1567367367 },
-        new PopulationData { Drilldown = "Europe", Y = 744010306 },
-        new PopulationData { Drilldown = "America", Y = 1058663026 },
-        new PopulationData { Drilldown = "Oceania", Y = 46867762 }
+        new PopulationData { Drilldown = "Asia", Population = 4849336830},
+        new PopulationData { Drilldown = "Africa", Population = 1567367367 },
+        new PopulationData { Drilldown = "Europe", Population = 744010306 },
+        new PopulationData { Drilldown = "America", Population = 1058663026 },
+        new PopulationData { Drilldown = "Oceania", Population = 46867762 }
     };
     public class PopulationData
     {
-        public double Y { get; set; }
+        public double Population { get; set; }
         public string Drilldown { get; set; }
     }
     public void PointRender(PointRenderEventArgs args)
@@ -109,11 +109,11 @@
             DataSource =
             new List<PopulationData>
                     {
-                new PopulationData { Drilldown = "Asia", Y = 4849336830},
-                new PopulationData { Drilldown = "Africa", Y = 1567367367 },
-                new PopulationData { Drilldown = "Europe", Y = 744010306 },
-                new PopulationData { Drilldown = "America", Y = 1058663026 },
-                new PopulationData { Drilldown = "Oceania", Y = 46867762 }
+                new PopulationData { Drilldown = "Asia", Population = 4849336830},
+                new PopulationData { Drilldown = "Africa", Population = 1567367367 },
+                new PopulationData { Drilldown = "Europe", Population = 744010306 },
+                new PopulationData { Drilldown = "America", Population = 1058663026 },
+                new PopulationData { Drilldown = "Oceania", Population = 46867762 }
                     };
             ChartObj.PreventRender(false);
         }
@@ -126,7 +126,6 @@
             if (!clicked)
             {
                 TextDecoration = "none";
-                Color = string.Empty;
                 Fill = Colors[args.Index % 10];
                 IsDivVisible = true;
                 switch (args.Index)
@@ -137,14 +136,14 @@
                         RegionName = "Asia";
                         DataSource = new List<PopulationData>
                         {
-                            new PopulationData { Y = 1416096094, Drilldown = "China" },
-                            new PopulationData { Y = 1463865525, Drilldown = "India" },
-                            new PopulationData { Y = 285721236, Drilldown = "Indonesia" },
-                            new PopulationData { Y = 240485658, Drilldown = "Pakistan" },
-                            new PopulationData { Y = 173674000, Drilldown = "Bangladesh" },
-                            new PopulationData { Y = 125214000, Drilldown = "Japan" },
-                            new PopulationData { Y = 117337000, Drilldown = "Philippines" },
-                            new PopulationData { Y = 99145000, Drilldown = "Vietnam" }
+                            new PopulationData { Population = 1416096094, Drilldown = "China" },
+                            new PopulationData { Population = 1463865525, Drilldown = "India" },
+                            new PopulationData { Population = 285721236, Drilldown = "Indonesia" },
+                            new PopulationData { Population = 240485658, Drilldown = "Pakistan" },
+                            new PopulationData { Population = 173674000, Drilldown = "Bangladesh" },
+                            new PopulationData { Population = 125214000, Drilldown = "Japan" },
+                            new PopulationData { Population = 117337000, Drilldown = "Philippines" },
+                            new PopulationData { Population = 99145000, Drilldown = "Vietnam" }
                         };
                         break;
                     case 1:
@@ -153,13 +152,13 @@
                         RegionName = "Africa";
                         DataSource = new List<PopulationData>
                         {
-                            new PopulationData { Y = 223804632, Drilldown = "Nigeria" },
-                            new PopulationData { Y = 126527060, Drilldown = "Ethiopia" },
-                            new PopulationData { Y = 113733760, Drilldown = "Egypt" },
-                            new PopulationData { Y = 68260196, Drilldown = "Tanzania" },
-                            new PopulationData { Y = 60041463, Drilldown = "South Africa" },
-                            new PopulationData { Y = 55506699, Drilldown = "Kenya" },
-                            new PopulationData { Y = 48722967, Drilldown = "Uganda" }
+                            new PopulationData { Population = 223804632, Drilldown = "Nigeria" },
+                            new PopulationData { Population = 126527060, Drilldown = "Ethiopia" },
+                            new PopulationData { Population = 113733760, Drilldown = "EgPopulationpt" },
+                            new PopulationData { Population = 68260196, Drilldown = "Tanzania" },
+                            new PopulationData { Population = 60041463, Drilldown = "South Africa" },
+                            new PopulationData { Population = 55506699, Drilldown = "KenPopulationa" },
+                            new PopulationData { Population = 48722967, Drilldown = "Uganda" }
                         };
                         break;
                     case 2:
@@ -168,12 +167,12 @@
                         RegionName = "Europe";
                         DataSource = new List<PopulationData>
                         {
-                            new PopulationData { Y = 143400000, Drilldown = "Russia" },
-                            new PopulationData { Y = 84171726, Drilldown = "Germany" },
-                            new PopulationData { Y = 67508979, Drilldown = "United Kingdom" },
-                            new PopulationData { Y = 65488764, Drilldown = "France" },
-                            new PopulationData { Y = 59037422, Drilldown = "Italy" },
-                            new PopulationData { Y = 47432899, Drilldown = "Spain" }
+                            new PopulationData { Population = 143400000, Drilldown = "Russia" },
+                            new PopulationData { Population = 84171726, Drilldown = "GermanPopulation" },
+                            new PopulationData { Population = 67508979, Drilldown = "United Kingdom" },
+                            new PopulationData { Population = 65488764, Drilldown = "France" },
+                            new PopulationData { Population = 59037422, Drilldown = "ItalPopulation" },
+                            new PopulationData { Population = 47432899, Drilldown = "Spain" }
                         };
 
                         break;
@@ -183,14 +182,14 @@
                         RegionName = "America";
                         DataSource = new List<PopulationData>
                         {
-                            new PopulationData { Y = 339996563, Drilldown = "United States" },
-                            new PopulationData { Y = 127504125, Drilldown = "Mexico" },
-                            new PopulationData { Y = 39047872, Drilldown = "Canada" },
-                            new PopulationData { Y = 19161239, Drilldown = "Guatemala" },
-                            new PopulationData { Y = 10233527, Drilldown = "Honduras" },
-                            new PopulationData { Y = 6486205, Drilldown = "El Salvador" },
-                            new PopulationData { Y = 6782105, Drilldown = "Nicaragua" },
-                            new PopulationData { Y = 5300996, Drilldown = "Costa Rica" }
+                            new PopulationData { Population = 339996563, Drilldown = "United States" },
+                            new PopulationData { Population = 127504125, Drilldown = "Mexico" },
+                            new PopulationData { Population = 39047872, Drilldown = "Canada" },
+                            new PopulationData { Population = 19161239, Drilldown = "Guatemala" },
+                            new PopulationData { Population = 10233527, Drilldown = "Honduras" },
+                            new PopulationData { Population = 6486205, Drilldown = "El Salvador" },
+                            new PopulationData { Population = 6782105, Drilldown = "Nicaragua" },
+                            new PopulationData { Population = 5300996, Drilldown = "Costa Rica" }
                         };
                         break;
                     case 4:
@@ -199,9 +198,9 @@
                         RegionName = "Oceania";
                         DataSource = new List<PopulationData>
                         {
-                            new PopulationData { Y = 26784599, Drilldown = "Australia" },
-                            new PopulationData { Y = 9594300, Drilldown = "Papua New Guinea" },
-                            new PopulationData { Y = 5122600, Drilldown = "New Zealand" }
+                            new PopulationData { Population = 26784599, Drilldown = "Australia" },
+                            new PopulationData { Population = 9594300, Drilldown = "Papua New Guinea" },
+                            new PopulationData { Population = 5122600, Drilldown = "New Zealand" }
                         };
 
                         break;
@@ -217,7 +216,6 @@
             if (!clicked)
             {
                 TextDecoration = "none";
-                Color = string.Empty;
                 Fill = Colors[args.Point.Index % 10];
                 IsDivVisible = true;
                 switch (args.Point.Index)
@@ -228,14 +226,14 @@
                         RegionName = "Asia";
                         DataSource = new List<PopulationData>
                         {
-                            new PopulationData { Y = 1416096094, Drilldown = "China" },
-                            new PopulationData { Y = 1463865525, Drilldown = "India" },
-                            new PopulationData { Y = 285721236, Drilldown = "Indonesia" },
-                            new PopulationData { Y = 240485658, Drilldown = "Pakistan" },
-                            new PopulationData { Y = 173674000, Drilldown = "Bangladesh" },
-                            new PopulationData { Y = 125214000, Drilldown = "Japan" },
-                            new PopulationData { Y = 117337000, Drilldown = "Philippines" },
-                            new PopulationData { Y = 99145000, Drilldown = "Vietnam" }
+                            new PopulationData { Population = 1416096094, Drilldown = "China" },
+                            new PopulationData { Population = 1463865525, Drilldown = "India" },
+                            new PopulationData { Population = 285721236, Drilldown = "Indonesia" },
+                            new PopulationData { Population = 240485658, Drilldown = "Pakistan" },
+                            new PopulationData { Population = 173674000, Drilldown = "Bangladesh" },
+                            new PopulationData { Population = 125214000, Drilldown = "Japan" },
+                            new PopulationData { Population = 117337000, Drilldown = "Philippines" },
+                            new PopulationData { Population = 99145000, Drilldown = "Vietnam" }
                         };
                         break;
                     case 1:
@@ -244,13 +242,13 @@
                         RegionName = "Africa";
                         DataSource = new List<PopulationData>
                         {
-                            new PopulationData { Y = 223804632, Drilldown = "Nigeria" },
-                            new PopulationData { Y = 126527060, Drilldown = "Ethiopia" },
-                            new PopulationData { Y = 113733760, Drilldown = "Egypt" },
-                            new PopulationData { Y = 68260196, Drilldown = "Tanzania" },
-                            new PopulationData { Y = 60041463, Drilldown = "South Africa" },
-                            new PopulationData { Y = 55506699, Drilldown = "Kenya" },
-                            new PopulationData { Y = 48722967, Drilldown = "Uganda" }
+                            new PopulationData { Population = 223804632, Drilldown = "Nigeria" },
+                            new PopulationData { Population = 126527060, Drilldown = "Ethiopia" },
+                            new PopulationData { Population = 113733760, Drilldown = "EgPopulationpt" },
+                            new PopulationData { Population = 68260196, Drilldown = "Tanzania" },
+                            new PopulationData { Population = 60041463, Drilldown = "South Africa" },
+                            new PopulationData { Population = 55506699, Drilldown = "KenPopulationa" },
+                            new PopulationData { Population = 48722967, Drilldown = "Uganda" }
                         };
                         break;
                     case 2:
@@ -259,12 +257,12 @@
                         RegionName = "Europe";
                         DataSource = new List<PopulationData>
                         {
-                            new PopulationData { Y = 143400000, Drilldown = "Russia" },
-                            new PopulationData { Y = 84171726, Drilldown = "Germany" },
-                            new PopulationData { Y = 67508979, Drilldown = "United Kingdom" },
-                            new PopulationData { Y = 65488764, Drilldown = "France" },
-                            new PopulationData { Y = 59037422, Drilldown = "Italy" },
-                            new PopulationData { Y = 47432899, Drilldown = "Spain" }
+                            new PopulationData { Population = 143400000, Drilldown = "Russia" },
+                            new PopulationData { Population = 84171726, Drilldown = "GermanPopulation" },
+                            new PopulationData { Population = 67508979, Drilldown = "United Kingdom" },
+                            new PopulationData { Population = 65488764, Drilldown = "France" },
+                            new PopulationData { Population = 59037422, Drilldown = "ItalPopulation" },
+                            new PopulationData { Population = 47432899, Drilldown = "Spain" }
                         };
                         break;
                     case 3:
@@ -273,14 +271,14 @@
                         RegionName = "North America";
                         DataSource = new List<PopulationData>
                         {
-                            new PopulationData { Y = 339996563, Drilldown = "United States" },
-                            new PopulationData { Y = 127504125, Drilldown = "Mexico" },
-                            new PopulationData { Y = 39047872, Drilldown = "Canada" },
-                            new PopulationData { Y = 19161239, Drilldown = "Guatemala" },
-                            new PopulationData { Y = 10233527, Drilldown = "Honduras" },
-                            new PopulationData { Y = 6486205, Drilldown = "El Salvador" },
-                            new PopulationData { Y = 6782105, Drilldown = "Nicaragua" },
-                            new PopulationData { Y = 5300996, Drilldown = "Costa Rica" }
+                            new PopulationData { Population = 339996563, Drilldown = "United States" },
+                            new PopulationData { Population = 127504125, Drilldown = "Mexico" },
+                            new PopulationData { Population = 39047872, Drilldown = "Canada" },
+                            new PopulationData { Population = 19161239, Drilldown = "Guatemala" },
+                            new PopulationData { Population = 10233527, Drilldown = "Honduras" },
+                            new PopulationData { Population = 6486205, Drilldown = "El Salvador" },
+                            new PopulationData { Population = 6782105, Drilldown = "Nicaragua" },
+                            new PopulationData { Population = 5300996, Drilldown = "Costa Rica" }
                         };
                         break;
                     case 4:
@@ -289,9 +287,9 @@
                         RegionName = "Oceania";
                         DataSource = new List<PopulationData>
                         {
-                            new PopulationData { Y = 26784599, Drilldown = "Australia" },
-                            new PopulationData { Y = 9594300, Drilldown = "Papua New Guinea" },
-                            new PopulationData { Y = 5122600, Drilldown = "New Zealand" }
+                            new PopulationData { Population = 26784599, Drilldown = "Australia" },
+                            new PopulationData { Population = 9594300, Drilldown = "Papua New Guinea" },
+                            new PopulationData { Population = 5122600, Drilldown = "New Zealand" }
                         };
                         break;
                 }
