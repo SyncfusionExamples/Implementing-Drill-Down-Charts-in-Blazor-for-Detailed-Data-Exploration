@@ -6,7 +6,7 @@ These [OnPointClick](https://help.syncfusion.com/cr/blazor/Syncfusion.Blazor.Cha
 
 ## Prerequisites
 
-- [.NET 7 SDK](https://dotnet.microsoft.com/download/dotnet/7.0)
+- [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
 - [Visual Studio 2022](https://visualstudio.microsoft.com/vs/)
 - Basic understanding of Blazor and C#
 
