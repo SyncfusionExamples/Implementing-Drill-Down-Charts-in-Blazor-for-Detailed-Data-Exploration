@@ -17,10 +17,10 @@
         <ChartArea>
             <ChartAreaBorder Width="0"></ChartAreaBorder>
         </ChartArea>
-        <ChartEvents OnPointRender="PointRender" OnPointClick="OnPointClick" OnAxisLabelClick="AxisLabelClick" OnDataLabelRender="DataLabelRender">
+        <ChartEvents OnPointRender="PointRender" OnPointClick="OnPointClick" OnAxisLabelClick="AxisLabelClick" OnAxisLabelRender="AxisLabelEvent" TooltipRender="TooltipEvent" OnDataLabelRender="DataLabelRender">
         </ChartEvents>
         <ChartPrimaryXAxis ValueType="Syncfusion.Blazor.Charts.ValueType.Category" Interval="1"
-                           LabelIntersectAction="@LabelIntersectActions">
+        LabelIntersectAction="@LabelIntersectActions">
             <ChartAxisLabelStyle Color="@Color"></ChartAxisLabelStyle>
             <ChartAxisMajorTickLines Width="0"></ChartAxisMajorTickLines>
             <ChartAxisMinorTickLines Width="0"></ChartAxisMinorTickLines>
@@ -32,8 +32,8 @@
         </ChartPrimaryYAxis>
         <ChartSeriesCollection>
             <ChartSeries Fill="@Fill" DataSource="@DataSource" Name="Population" XName="Location" Width="2" Opacity="1"
-                         YName="Population" Type="ChartSeriesType.Column"
-                         CornerRadius="@(new ChartCornerRadius { TopLeft = 5, TopRight = 5})">
+            YName="Population" Type="ChartSeriesType.Column"
+            CornerRadius="@(new ChartCornerRadius { TopLeft = 5, TopRight = 5})">
                 <ChartMarker>
                     <ChartDataLabel Visible="true" Position="LabelPosition.Outer"></ChartDataLabel>
                 </ChartMarker>
@@ -41,25 +41,25 @@
         </ChartSeriesCollection>
         <ChartLegendSettings Visible="false" />
         <ChartTooltipSettings Enable="true" Header="<b>Population - 2025</b>"
-                              Format="${point.x}: <b>${point.y}</b>"></ChartTooltipSettings>
+        Format="${point.x}: <b>${point.y}</b>"></ChartTooltipSettings>
     </SfChart>
 </div>
 
 <style>
     .control-section {
-        padding: 0px;
+    padding: 0px;
     }
     #category:hover {
-        cursor: pointer;
-        color: #23527c !important;
-        text-decoration: underline;
+    cursor: pointer;
+    color: #23527c !important;
+    text-decoration: underline;
     }
     g[id*="AxisLabels0"] text[id*="AxisLabel_"] {
-        text-decoration: @TextDecoration;
-        cursor: pointer;
+    text-decoration: @TextDecoration;
+    cursor: pointer;
     }
     g[id*="SeriesGroup0"] path[id*="Series_0_Point_"] {
-        cursor: pointer;
+    cursor: pointer;
     }
 </style>
 
@@ -236,6 +236,26 @@
         if (double.TryParse(args.Text, out value))
         {
             args.Text = FormatNumber(value);
+        }
+    }
+
+    public void AxisLabelEvent(AxisLabelRenderEventArgs args)
+    {
+        if (args.Axis.Name == "PrimaryYAxis")
+        {
+            double value;
+            if (double.TryParse(args.Text, out value))
+            {
+                args.Text = FormatNumber(value);
+            }
+        }
+    }
+
+    public void TooltipEvent(TooltipRenderEventArgs args)
+    {
+        if (!string.IsNullOrEmpty(args.Text))
+        {
+            args.Text = args.Data.PointX + ": " + "<b>" + FormatNumber(Convert.ToDouble(args.Data.PointY)) + "</b>";
         }
     }
 
